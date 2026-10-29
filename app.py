@@ -17,22 +17,97 @@ st.set_page_config(
     layout="wide",
 )
 
+
 st.markdown("""
 <style>
-    .stApp { background: linear-gradient(135deg, #f6fbf7 0%, #edf7f0 100%); }
-    .hero {
-        padding: 1.5rem 1.7rem; border-radius: 18px;
-        background: linear-gradient(110deg, #e1f3e7, #f7fcf8);
-        border: 1px solid #d4e9db; margin-bottom: 1.2rem;
+    /* Main page background and default text */
+    .stApp {
+        background: linear-gradient(135deg, #f6fbf7 0%, #edf7f0 100%);
+        color: #1f2937;
     }
-    .hero h1 { color: #104b38; margin: 0; }
-    .hero p { color: #52665d; margin: .45rem 0 0; font-size: 1.05rem; }
+
+    /* Keep normal content readable */
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"],
+    [data-testid="stMainBlockContainer"] {
+        color: #1f2937;
+    }
+
+    /* Main heading banner */
+    .hero {
+        padding: 1.5rem 1.7rem;
+        border-radius: 18px;
+        background: linear-gradient(110deg, #e1f3e7, #f7fcf8);
+        border: 1px solid #d4e9db;
+        margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+        color: #104b38 !important;
+        margin: 0;
+    }
+
+    .hero p {
+        color: #52665d !important;
+        margin: .45rem 0 0;
+        font-size: 1.05rem;
+    }
+
+    /* Section headings */
+    h2, h3, h4,
+    [data-testid="stSubheader"],
+    label,
+    .stMarkdown p,
+    .stMarkdown li,
+    [data-testid="stCaptionContainer"] {
+        color: #26382e;
+    }
+
+    /* Prediction result card */
     .result {
-        padding: 1.2rem; border-radius: 14px; background: white;
+        padding: 1.2rem;
+        border-radius: 14px;
+        background: #ffffff;
         border: 1px solid #d9e9df;
     }
-    .muted { color: #63746b; }
-    footer { visibility: hidden; }
+
+    .result h3 {
+        color: #14532d !important;
+    }
+
+    .result p {
+        color: #52665d !important;
+    }
+
+    .muted {
+        color: #63746b;
+    }
+
+    /* File uploader */
+    [data-testid="stFileUploader"] {
+        color: #26382e;
+    }
+
+    [data-testid="stFileUploader"] section {
+        background: #ffffff;
+        border: 1px solid #d1e2d6;
+        border-radius: 10px;
+    }
+
+    /* Information message */
+    [data-testid="stAlert"] {
+        color: #1f2937;
+    }
+
+    /* Buttons */
+    .stButton button {
+        font-weight: 600;
+    }
+
+    /* Hide Streamlit footer */
+    footer {
+        visibility: hidden;
+    }
 </style>
 """, unsafe_allow_html=True)
 
