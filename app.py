@@ -178,5 +178,5 @@ with right:
             )
 
 
-st.divider()
-st.caption("Plant Leaf Disease Classification • B.Tech CSE ML Lab Project")
+            st.divider()
+            st.caption("Plant Leaf Disease Classification • B.Tech CSE ML Lab Project")
