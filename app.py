@@ -140,28 +140,43 @@ with right:
                 )
                 st.stop()
 
-            predicted_index = int(np.argmax(scores))
-            predicted_class = class_names[predicted_index]
-            confidence = float(scores[predicted_index])
+            
+predicted_index = int(np.argmax(scores))
+predicted_class = class_names[predicted_index]
+confidence = float(scores[predicted_index])
 
-            st.success(f"Predicted class: **{predicted_class.replace('_', ' ')}**")
-            st.metric("Model confidence", f"{confidence * 100:.2f}%")
-            st.progress(max(0.0, min(1.0, confidence)))
+# Display prediction with a confidence warning
+if confidence < 0.60:
+    st.warning(
+        "Low-confidence prediction. Please upload a clear image "
+        "of a single plant leaf. The result may be unreliable."
+    )
+else:
+    st.success(
+        f"Predicted class: **{predicted_class.replace('_', ' ')}**"
+    )
 
-            st.markdown("#### Class-wise scores")
-            ranked = sorted(zip(class_names, scores), key=lambda item: float(item[1]), reverse=True)
-            for name, score in ranked:
-                st.write(f"**{name.replace('_', ' ')}** — {float(score) * 100:.2f}%")
-                st.progress(max(0.0, min(1.0, float(score))))
+st.metric("Model confidence", f"{confidence * 100:.2f}%")
+st.progress(max(0.0, min(1.0, confidence)))
 
-            st.caption(
-                "These are model scores, not guaranteed probabilities of real-world correctness. "
-                "Predictions are experimental and may be unreliable for unfamiliar images or field conditions."
-            )
-        except Exception as exc:
-            st.error(f"Could not process this image: {exc}")
-    else:
-        st.write("Upload an image, then click **Predict Disease**.")
+st.markdown("#### Class-wise scores")
+ranked = sorted(
+    zip(class_names, scores),
+    key=lambda item: float(item[1]),
+    reverse=True,
+)
+
+for name, score in ranked:
+    st.write(
+        f"**{name.replace('_', ' ')}** — {float(score) * 100:.2f}%"
+    )
+    st.progress(max(0.0, min(1.0, float(score))))
+
+st.caption(
+    "Model scores are not guaranteed probabilities of correctness. "
+    "This model is trained on 15 PlantVillage leaf categories and may "
+    "misclassify unrelated images or unfamiliar field conditions."
+)
 
 st.divider()
 st.caption("Plant Leaf Disease Classification • B.Tech CSE ML Lab Project")
