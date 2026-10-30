@@ -178,7 +178,7 @@ with right:
             )
 
         except Exception as exc:
-        st.error(f"Could not process this image: {exc}")
+           st.error(f"Could not process this image: {exc}")
 
 else:
     st.write("Upload an image, then click **Predict Disease**.")
