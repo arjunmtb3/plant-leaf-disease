@@ -6,6 +6,21 @@ import streamlit as st
 import tensorflow as tf
 from PIL import Image
 
+def is_likely_leaf(image):
+    image = image.convert("RGB").resize((224, 224))
+    img = np.array(image, dtype=np.float32)
+
+    # Basic green-pixel check
+    green = (
+        (img[:, :, 1] > img[:, :, 0] * 1.05) &
+        (img[:, :, 1] > img[:, :, 2] * 0.90) &
+        (img[:, :, 1] > 40)
+    )
+
+    green_ratio = np.mean(green)
+
+    return green_ratio > 0.05
+
 ROOT = Path(__file__).resolve().parent
 MODEL_PATH = ROOT / "models" / "plant_disease.keras"
 CLASS_PATH = ROOT / "models" / "class_names.json"
@@ -128,6 +143,10 @@ with right:
         )
     elif predict_clicked:
         try:
+
+            if not is_likely_leaf(image):
+                st.error("Not a plant leaf. Please upload a plant leaf image.")
+                st.stop()
             resized = image.resize(IMG_SIZE)
             array = np.asarray(resized, dtype=np.float32)
             array = np.expand_dims(array, axis=0)
