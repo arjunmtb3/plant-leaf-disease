@@ -177,6 +177,12 @@ with right:
                 "field conditions."
             )
 
+        except Exception as exc:
+        st.error(f"Could not process this image: {exc}")
 
-            st.divider()
-            st.caption("Plant Leaf Disease Classification • B.Tech CSE ML Lab Project")
+else:
+    st.write("Upload an image, then click **Predict Disease**.")
+
+st.divider()
+st.caption("Plant Leaf Disease Classification • B.Tech CSE ML Lab Project")
+            
